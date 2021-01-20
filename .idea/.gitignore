@@ -1,0 +1,10 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# CodeStream ignored files
+/../../live-study\.idea/codestream.xml
+# Datasource local storage ignored files
+/../../../../../../:\Users\bmkim\IdeaProjects\live-study\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
