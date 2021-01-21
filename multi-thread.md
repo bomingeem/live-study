@@ -1,88 +1,42 @@
 멀티쓰레드를 알기 전에 프로세스에 대한 이해부터 알아보고자 합니다.
 
-프로세스
+<h3>프로세스</h3>
 - 프로세스란, 프로그램이 실행되어 프로세스라는 과정으로 메모리에 할당됩니다.
 - 간단하게 실행 중인 프로그램으로 생각하면 됩니다.
 - 프로세스는 자원과 스레드로 구성되어 있습니다.
 
 
-스레드
+<h3>스레드</h3>
 - 스레드란 프로세스 내에서 실제 작업을 수행하며 모든 프로세스는 하나 이상의 스레드를 가지고 있습니다.
 - 스레드를 비유로 들자면 공장의 일꾼이라고 생각하시면 됩니다.
 - 싱글 스레드 프로세스 = 자원 + 스레드
 - 멀티 스레드 프로세스 = 자원 + 스레드 + 스레드 + ... + 스레드
 
 
-스레드의 구현과 실행
+<h3>스레드의 구현과 실행</h3>
 스레드 구현은 2가지의 방법이 있습니다.
 1. Thread 클래스 상속
 - Thread 클래스를 상속한 경우, start()를 실행하는 기점에 run() 메소드를 사용합니다.
 - 이 말은 즉, start() 메소드는 새로운 스레드가 작업을 실행하는데 필요한 Call Stack이라는 공간을 생성한 다음 run() 메소드를 호출해서 Stack 내부에 run()이 저장됩니다.
-
-    public class Thread1 extends Thread { <br>
-    }
-
-public class ThreadTest { <br>
-public static void main(String[] args) { <br>
-Thread1 thread1 = new Thread1(); <br>
-thread1.start(); <br>
-} <br>
-}
+  ![캡처1](https://user-images.githubusercontent.com/47099798/105260289-e6e49f80-5bd0-11eb-8df3-f0f31020eb6b.JPG)
+  
 
 2. Runnable 인터페이스 구현
-- Runnable 인터페이스를 구현한 경우, Thread 객체 안에 스레드를 사용하려는 객체를 넣은 후 객체화 하여 사용합니다.
-
-public class Thread2 implements Runnable { <br>
-@Override <br>
-public void run() { <br>
-//Runnable 인터페이스의 추상메서드 run()을 구현 <br>
-} <br>
-}
-
-public class ThreadTest { <br>
-public static void main(String[] args) { <br>
-Thread thread = new Thread(new Thread2()); <br>
-thread.start(); <br>
-} <br>
-} <br>
+ - Runnable 인터페이스를 구현한 경우, Thread 객체 안에 스레드를 사용하려는 객체를 넣은 후 객체화 하여 사용합니다.
+  ![캡처2](https://user-images.githubusercontent.com/47099798/105260296-e8ae6300-5bd0-11eb-810f-2f1611e712e5.JPG)
+  
 두가지 중 어느 쪽을 사용하던지 크게 차이는 없지만 Java에서는 다중상속을 허용하지 않기 때문에 <br>
 Thread 클래스를 상속받을 경우, 다른 클래스를 사용할 수 없습니다. <br>
 더 객체지향적인 방법을 사용하고자 한다면 Runnable 인터페이스를 구현하는 것이 일반적입니다.
 
 
-멀티스레드 실행결과 <br>
+<h3>멀티스레드 실행결과</h3>
 아래의 예시 출력결과 2개의 스레드가 순차적으로 실행되지 않고 끝나는 시간도 각각이며 매번 실행할 때마다 실행결과는 항상 동일하지 않습니다.
-
-public class Thread1 extends Thread { <br>
-public void run() { <br>
-for (int i=0; i<100; i++) { <br>
-System.out.println("Thread-1"); <br>
-} <br>
-} <br>
-}
-
-public class Thread2 implements Runnable{ <br>
-@Override <br>
-public void run() { <br>
-for (int i=0; i<100; i++) { <br>
-System.out.println("Thread-2"); <br>
-} <br>
-} <br>
-}
-
-public class ThreadTest { <br>
-public static void main(String[] args) { <br>
-//멀티 스레드 <br>
-Thread1 thread1 = new Thread1(); <br>
-Thread thread2 = new Thread(new Thread2()); <br>
-thread1.start(); <br>
-thread2.start(); <br>
-} <br>
-} <br>
+![캡처3](https://user-images.githubusercontent.com/47099798/105260299-e946f980-5bd0-11eb-8271-83b821de41ca.JPG)
 결과 <br>
 ![thread](https://user-images.githubusercontent.com/47099798/105131104-9f580800-5b2b-11eb-8bd8-c727277020b7.jpg)
 
-스레드의 상태 <br>
+<h3>스레드의 상태</h3>
 간혹 스레드를 제어해야 할 필요성이 있는데 스레드의 상태를 알아보고자 합니다. <br>
 효율적으로 보기위해 그림으로 그려보았습니다. <br>
 
@@ -93,3 +47,23 @@ thread2.start(); <br>
 ④ 실행 중 suspend(), sleep(), wait(), join() 호출에 의해 작업이 종료되지는 않았으나 실행가능하지 않은 일시정지 상태 <br>
 ⑤ 지정된 일시정지 시간이 다 되거나(time-out), notify(), resume(), interrup()가 호출되면 일시정지를 벗어나 다시 실행대기열에 상태 <br>
 ⑥ stop()이 호출되거나 스레드의 작업이 종료된 상태 <br>
+
+
+<h3>스레드의 우선순위</h3>
+ - 작업의 중요도에 따라 스레드의 우선순위를 다르게 하여 특정 스레드가 더 많은 작업시간을 갖도록 할 수 있습니다.
+ - 우선순위는 setPriority() 메소드를 이용하여 스레드의 우선순위를 지정한 값으로 변경하고 getPriority() 메소드를 이용하여 스레드의 우선순위를 반환합니다.
+ - 우선순위를 지정하는 방법은 ①숫자로 지정하는 방법이 있고, ②Thread 클래스의 상수를 쓸 수도 있습니다.
+ - 숫자로 지정하는 방법의 경우 우선순위는 1~10까지 있으며 1이 우선순위가 가장 낮으며 별도의 설정을 하지 않는경우 5로 설정됩니다.
+저는 아래와 같이 상수를 이용하여 예제를 작성하였습니다.
+   
+![캡처4](https://user-images.githubusercontent.com/47099798/105260546-4e9aea80-5bd1-11eb-9d10-e1dcc2987120.JPG)
+
+위에 대한 예시 코드에 대한 출력 결과입니다.   
+![ex1](https://user-images.githubusercontent.com/47099798/105260616-725e3080-5bd1-11eb-9e7f-4e443a5ae2cf.JPG)
+
+<h3>Main 스레드</h3>
+ - 모든 자바 application은 반드시 하나의 메인 스레드를 가지고 있습니다.
+ - main() 메소드를 실행하면서 시작하며, main() 메소드의 마지막 코드를 실행하거나 return 문을 만나면 종료합니다.
+ - 메인 스레드는 여러개의 작업 스레드를 생성(즉, 멀티 스레드)하여 병렬로 코드를 실행할 수 있습니다. 그래서 멀티 스레드 어플리케이션은 메인 스레드가 종료되더라도 아직 실행중인 다른 스레드가 하나라도 존재한다면 프로세스를 종료하지 않습니다.
+![캡처5](https://user-images.githubusercontent.com/47099798/105260685-96ba0d00-5bd1-11eb-8d1f-d296f159c1e5.JPG)
+
