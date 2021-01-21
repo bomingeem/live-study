@@ -34,15 +34,20 @@ Thread 클래스를 상속받을 경우, 다른 클래스를 사용할 수 없�
 
 <h3>멀티스레드 실행결과</h3>
 아래의 예시 출력결과 2개의 스레드가 순차적으로 실행되지 않고 끝나는 시간도 각각이며 매번 실행할 때마다 실행결과는 항상 동일하지 않습니다.
+
 ![캡처3](https://user-images.githubusercontent.com/47099798/105260992-2bbd0600-5bd2-11eb-8565-b7dce60bfea0.JPG)
+
 결과 <br>
+
   ![thread](https://user-images.githubusercontent.com/47099798/105131104-9f580800-5b2b-11eb-8bd8-c727277020b7.jpg)
+
 
 <h3>스레드의 상태</h3>
 간혹 스레드를 제어해야 할 필요성이 있는데 스레드의 상태를 알아보고자 합니다. <br>
 효율적으로 보기위해 그림으로 그려보았습니다. <br>
 
   ![thread2](https://user-images.githubusercontent.com/47099798/105141153-11384d80-5b3c-11eb-93a7-8c937edd9a24.jpg)
+  
 ① 스레드가 생성(NEW)되고 start() 호출 시 실행대기열에 저장되어 실행중 또는 실행 가능한 상태 <br>
 ② 자기 차례가 되면 실행 상태 <br>
 ③ 주어진 실행 시간이 다 되거나 yield() 실행 시 다음 차례의 스레드가 되는 실행상태 <br>
@@ -61,11 +66,13 @@ Thread 클래스를 상속받을 경우, 다른 클래스를 사용할 수 없�
 ![캡처4](https://user-images.githubusercontent.com/47099798/105260995-2c559c80-5bd2-11eb-9c02-6cad5aee4110.JPG)
 
 위에 대한 예시 코드에 대한 출력 결과입니다.   
+
 ![ex1](https://user-images.githubusercontent.com/47099798/105260997-2eb7f680-5bd2-11eb-950a-ee0fb524a309.JPG)
 
 <h3>Main 스레드</h3>
  - 모든 자바 application은 반드시 하나의 메인 스레드를 가지고 있습니다.
  - main() 메소드를 실행하면서 시작하며, main() 메소드의 마지막 코드를 실행하거나 return 문을 만나면 종료합니다.
  - 메인 스레드는 여러개의 작업 스레드를 생성(즉, 멀티 스레드)하여 병렬로 코드를 실행할 수 있습니다. 그래서 멀티 스레드 어플리케이션은 메인 스레드가 종료되더라도 아직 실행중인 다른 스레드가 하나라도 존재한다면 프로세스를 종료하지 않습니다.
+ 
    ![캡처5](https://user-images.githubusercontent.com/47099798/105260996-2d86c980-5bd2-11eb-9d60-ddce3664b83f.JPG)
 
