@@ -18,11 +18,13 @@
 1. Thread 클래스 상속
 - Thread 클래스를 상속한 경우, start()를 실행하는 기점에 run() 메소드를 사용합니다.
 - 이 말은 즉, start() 메소드는 새로운 스레드가 작업을 실행하는데 필요한 Call Stack이라는 공간을 생성한 다음 run() 메소드를 호출해서 Stack 내부에 run()이 저장됩니다.
+
   ![캡처1](https://user-images.githubusercontent.com/47099798/105260983-2495f800-5bd2-11eb-80c6-a840f6a10e48.JPG)
   
 
 2. Runnable 인터페이스 구현
  - Runnable 인터페이스를 구현한 경우, Thread 객체 안에 스레드를 사용하려는 객체를 넣은 후 객체화 하여 사용합니다.
+ 
    ![캡처2](https://user-images.githubusercontent.com/47099798/105260990-2b246f80-5bd2-11eb-9898-51b8dc2c16bc.JPG)
   
 두가지 중 어느 쪽을 사용하던지 크게 차이는 없지만 Java에서는 다중상속을 허용하지 않기 때문에 <br>
